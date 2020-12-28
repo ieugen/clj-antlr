@@ -1,0 +1,20 @@
+{:paths ["src" "src/java" "resources" "classes"]
+ :deps {org.clojure/clojure {:mvn/version "1.8.0"}
+        org.antlr/antlr4-runtime {:mvn/version "4.8-1"}
+        org.antlr/antlr4 {:mvn/version "4.8-1"}
+        org.clojure/tools.logging {:mvn/version "1.1.0"}
+        org.slf4j/slf4j-simple {:mvn/version "1.7.30"}}
+ :aliases
+ {:test {:extra-paths ["test"]
+         :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
+                      criterium/criterium {:mvn/version "0.4.6"}
+                      cheshire/cheshire {:mvn/version "5.10.0"}
+                      org.slf4j/slf4j-simple {:mvn/version "1.7.30"}
+                      instaparse/instaparse {:mvn/version "1.4.10"}}}
+  :runner {:extra-deps {com.cognitect/test-runner
+                        {:git/url "https://github.com/cognitect-labs/test-runner"
+                         :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
+           :main-opts ["-m" "cognitect.test-runner"
+                       "-d" "test"]}
+  :compile-java {:extra-deps {org.apache.ant/ant {:mvn/version "1.10.9"}}
+                 :main-opts ["-e" "(println,(System/getProperty,\"clojure.basis\"))"]}}}

@@ -1,0 +1,40 @@
+<project name="clj-antlr" default="dist" basedir=".">
+    <description>
+      Build file for the java classes.
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src/java" />
+    <property name="build" location="classes" />
+    <property name="dist" location="dist" />
+    <property name="classpath" location="src:src/java:resources:/home/ieugen/.m2/repository/org/antlr/antlr4/4.8-1/antlr4-4.8-1.jar:/home/ieugen/.m2/repository/org/antlr/antlr4-runtime/4.8-1/antlr4-runtime-4.8-1.jar:/home/ieugen/.m2/repository/org/clojure/clojure/1.8.0/clojure-1.8.0.jar:/home/ieugen/.m2/repository/org/clojure/tools.logging/1.1.0/tools.logging-1.1.0.jar:/home/ieugen/.m2/repository/org/slf4j/slf4j-simple/1.7.30/slf4j-simple-1.7.30.jar:/home/ieugen/.m2/repository/com/ibm/icu/icu4j/61.1/icu4j-61.1.jar:/home/ieugen/.m2/repository/org/abego/treelayout/org.abego.treelayout.core/1.0.3/org.abego.treelayout.core-1.0.3.jar:/home/ieugen/.m2/repository/org/antlr/ST4/4.3/ST4-4.3.jar:/home/ieugen/.m2/repository/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar:/home/ieugen/.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar:/home/ieugen/.m2/repository/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar"/>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp />
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}" />
+    </target>
+
+    <target name="compile" depends="init" description="compile the source">
+        <!-- Compile the Java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath>
+                <pathelement path="${classpath}" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile" description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib" />
+
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/clj_antlr_java-${DSTAMP}.jar" basedir="${build}" />
+    </target>
+
+    <target name="clean" description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+</project>
